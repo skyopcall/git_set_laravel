@@ -17,8 +17,8 @@ function SET_ENV_DB_HOST(){
 }
 
 function SET_DOCKER_COMPOSE_COPY(){
-    mkdir $SET_HOME_PATH/mysql_dump/
     cp $GET_SH_FILE_PATH/docker-compose.yml $SET_HOME_PATH/docker-compose.yml
+
     SET_LOG docker-compose COPY_OK
 }
 
@@ -58,19 +58,23 @@ function SET_COMPOSER_INSTALL(){
     SET_LOG compose_install
 }
 
-function DOCKER_RUN_PHP_COMMAND(){
-    docker exec $GET_DOCKER_PHP_EXEC_TEXT php artisan $1 && 1> /dev/null
-    SET_LOG $1
-}
-
 function SET_PHP_ARTISAN(){
-    DOCKER_RUN_PHP_COMMAND migrate
-    DOCKER_RUN_PHP_COMMAND db:seed
+    # DOCKER_RUN_PHP_COMMAND migrate
+    # DOCKER_RUN_PHP_COMMAND db:seed
     DOCKER_RUN_PHP_COMMAND key:generate
     DOCKER_RUN_PHP_COMMAND storage:link
     DOCKER_RUN_PHP_COMMAND optimize:clear
 }
 
 function SET_MYSQL_DATA(){
-    echo $FILE_PATH;
+    local file_name=`GET_MYSQL_DESC_SORT_DUMP_FILE`
+
+    if [ -e $GET_MYSQL_DUMP_FILE_PATH/$file_name ] ; then
+        docker exec $GET_DOCKER_MYSQL_EXEC_TEXT sh -c "mysql -u dev  -p'dev' dev < /mysql_dump/$file_name";
+        SET_LOG mysql_dump $file_name;
+    else 
+        DOCKER_RUN_PHP_COMMAND migrate
+        DOCKER_RUN_PHP_COMMAND db:seed
+        SET_LOG mysql_dump php_artisan_migrate_and_db:seed
+    fi
 }

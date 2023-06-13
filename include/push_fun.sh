@@ -1,10 +1,13 @@
-function DOCKER_RUN_MYSQL_DUMP(){
-    docker exec $GET_DOCKER_MYSQL_EXEC_TEXT mysqldump -u dev --no-tablespaces --skip-add-drop-table -p'dev' dev > $SET_HOME_PATH/$MYSQL_DUMP_FILE_NAME;
-    SET_LOG mysql_dump $MYSQL_DATA_PATH/$MYSQL_DUMP_FILE_NAME;
-}
+function SET_DOCKER_RUN_MYSQL_DUMP(){
+    if [ ! -e $SET_HOME_PATH/mysql_dump/ ] ; then
+        mkdir $SET_HOME_PATH/mysql_dump/
+    fi
 
-function DOCKER_RUN_PHP_COMMAND(){
-    local COMMAND=$1
-    docker exec $GET_DOCKER_MYSQL_EXEC_TEXT COMMAND
+    local file_name=$MYSQL_DUMP_FILE_NAME
+
+    docker exec $GET_DOCKER_MYSQL_EXEC_TEXT sh -c "mysqldump -u dev --no-tablespaces --skip-add-drop-table -p'dev' dev > /mysql_dump/$file_name";
+    # cp $SET_HOME_PATH/$MYSQL_DUMP_FILE_NAME $GET_MYSQL_DUMP_FILE_PATH/
+
+    SET_LOG mysql_ok $file_name;
 }
 

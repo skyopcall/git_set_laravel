@@ -22,22 +22,8 @@ GET_DOCKER_MYSQL_EXEC_TEXT="$SET_HOST_DB_HOST_NAME-mysql-1"
 GET_DOCKER_PHP_EXEC_CODE=""
 GET_DOCKER_MYSQL_EXEC_CODE=""
 
-TT=`date +%m%d%y_%s`;
+TT=`date +%Y%m%d%H%M%S`;
 MYSQL_DUMP_FILE_NAME="$COMPANY_NAME-mysql-$TT.sql"
 MYSQL_DATA_PATH="/mysql_dump"
 
 FILE_PATH=`pwd`
-
-function SET_LOG(){
-    local TITLE=$1
-    local CONTENT=$2
-
-    # echo -e "\033[47;30m[$1]\033[0m \033[47;30m$2\033[0m ";
-    if [ $? -eq 0 ];then
-        echo -e "[\033[40;32mSUCCESS\033[0m] [ $1 ] $2"
-    else
-        # 명령어 실패시
-        echo -e "[\033[40;31mFAIL\033[0m] $1 "
-        exit 1
-    fi
-}

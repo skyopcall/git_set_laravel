@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source include/default.sh;
+source include/common_fun.sh;
 source include/load_fun.sh;
 
 # env 카피 및 DB_HOST 값 수정
@@ -14,4 +15,4 @@ SET_DOCKER_COMPOSE_COPY
 SET_BUILD
 
 #mysql 가져오기
-# SET_MYSQL_DATA
+SET_MYSQL_DATA
