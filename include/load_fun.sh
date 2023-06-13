@@ -54,27 +54,31 @@ function SET_DOCKER_UP_DEV(){
 }
 
 function SET_COMPOSER_INSTALL(){
-    docker exec $GET_DOCKER_PHP_EXEC_TEXT composer install && 1> /dev/null
+    # docker exec $GET_DOCKER_PHP_EXEC_TEXT composer install && 1> /dev/null
+    DOCKER_RUN_PHP_COMMAND "composer install"
     SET_LOG compose_install
 }
 
 function SET_PHP_ARTISAN(){
     # DOCKER_RUN_PHP_COMMAND migrate
     # DOCKER_RUN_PHP_COMMAND db:seed
-    DOCKER_RUN_PHP_COMMAND key:generate
-    DOCKER_RUN_PHP_COMMAND storage:link
-    DOCKER_RUN_PHP_COMMAND optimize:clear
+    DOCKER_RUN_PHP_COMMAND "php artisan key:generate"
+    DOCKER_RUN_PHP_COMMAND "php artisan storage:link"
+    DOCKER_RUN_PHP_COMMAND "php artisan optimize:clear"
 }
 
 function SET_MYSQL_DATA(){
     local file_name=`GET_MYSQL_DESC_SORT_DUMP_FILE`
 
     if [ -e $GET_MYSQL_DUMP_FILE_PATH/$file_name ] ; then
-        docker exec $GET_DOCKER_MYSQL_EXEC_TEXT sh -c "mysql -u dev  -p'dev' dev < /mysql_dump/$file_name";
+        DOCKER_RUN_MYSQL_COMMAND "mysql -u dev  -p'dev' dev < /mysql_dump/$file_name"
+        # docker exec $GET_DOCKER_MYSQL_EXEC_TEXT sh -c "mysql -u dev  -p'dev' dev < /mysql_dump/$file_name";
+        
         SET_LOG mysql_dump $file_name;
     else 
-        DOCKER_RUN_PHP_COMMAND migrate
-        DOCKER_RUN_PHP_COMMAND db:seed
+        DOCKER_RUN_PHP_COMMAND "php artisan migrate"
+        DOCKER_RUN_PHP_COMMAND "php artisan db:seed"
+
         SET_LOG mysql_dump php_artisan_migrate_and_db:seed
     fi
 }

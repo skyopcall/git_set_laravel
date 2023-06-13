@@ -5,7 +5,7 @@ function SET_DOCKER_RUN_MYSQL_DUMP(){
 
     local file_name=$MYSQL_DUMP_FILE_NAME
 
-    docker exec $GET_DOCKER_MYSQL_EXEC_TEXT sh -c "mysqldump -u dev --no-tablespaces --skip-add-drop-table -p'dev' dev > /mysql_dump/$file_name";
+    DOCKER_RUN_MYSQL_COMMAND "mysqldump -u dev --no-tablespaces --skip-add-drop-table -p'dev' dev > /mysql_dump/$file_name";
     # cp $SET_HOME_PATH/$MYSQL_DUMP_FILE_NAME $GET_MYSQL_DUMP_FILE_PATH/
 
     SET_LOG mysql_ok $file_name;

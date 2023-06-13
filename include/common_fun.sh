@@ -12,14 +12,19 @@ function SET_LOG(){
     fi
 }
 
+# function DOCKER_RUN_PHP_COMMAND(){
+#     docker exec $GET_DOCKER_PHP_EXEC_TEXT php artisan $1 && 1> /dev/null
+#     SET_LOG $1
+# }
+
 function DOCKER_RUN_PHP_COMMAND(){
-    docker exec $GET_DOCKER_PHP_EXEC_TEXT php artisan $1 && 1> /dev/null
-    SET_LOG $1
+    docker exec $GET_DOCKER_PHP_EXEC_TEXT sh -c "$1" && 1> /dev/null
+    SET_LOG "docker sh command" $1
 }
 
 function DOCKER_RUN_MYSQL_COMMAND(){
     local COMMAND=$1
-    docker exec $GET_DOCKER_MYSQL_EXEC_TEXT COMMAND
+    docker exec $GET_DOCKER_MYSQL_EXEC_TEXT sh -c "$COMMAND"
 }
 
 function GET_MYSQL_DESC_SORT_DUMP_FILE(){
