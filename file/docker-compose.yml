@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+  httpd:
+    build:
+      context: ./build/httpd
+      args:
+        - WEB_USER_ID
+        - WEB_GROUP_ID
+        - WEB_HOME_DIR
+    volumes:
+      - ./www-data:${WEB_HOME_DIR}
+    working_dir: ${WEB_HOME_DIR}
+    links:
+      - mysql
+      - php
+    depends_on:
+      - php
+
+  php:
+    build:
+      context: ./build/php
+      args:
+        - WEB_USER_ID
+        - WEB_GROUP_ID
+        - WEB_HOME_DIR
+    user: "${WEB_USER_ID}:${WEB_GROUP_ID}"
+    volumes:
+      - ./www-data:${WEB_HOME_DIR}
+    working_dir: ${WEB_HOME_DIR}
+    links:
+      - mysql
+
+  mysql:
+    image: mysql:8
+    env_file: .env
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./mysql_dump:/mysql_dump
+
+  node:
+    image: node:16.13.2-alpine
+    user: "${WEB_USER_ID}:${WEB_GROUP_ID}"
+    volumes:
+      - ./www-data:${WEB_HOME_DIR}
+    working_dir: ${WEB_HOME_DIR}
+    command: sh -c "npm install && npm run watch"
+
+networks:
+  default:
+    external: true
+    name: a_default
