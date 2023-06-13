@@ -16,6 +16,12 @@ function SET_ENV_DB_HOST(){
     SET_LOG CHANGE_DB_HOST_ENV "$log_db_host"
 }
 
+function SET_DOCKER_COMPOSE_COPY(){
+    mkdir $SET_HOME_PATH/mysql_dump/
+    cp $GET_SH_FILE_PATH/docker-compose.yml $SET_HOME_PATH/docker-compose.yml
+    SET_LOG docker-compose COPY_OK
+}
+
 function SET_BUILD(){
     # docker up
     SET_DOCKER_UP_DEV
