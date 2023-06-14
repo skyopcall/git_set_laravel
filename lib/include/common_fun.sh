@@ -48,6 +48,11 @@ function GET_MYSQL_DESC_SORT_DUMP_FILE(){
 function SET_GLOBAL_VALUES(){
     COMPANY_NAME=$1
     SET_HOME_PATH="/home/$USER/$COMPANY_NAME";
+    if [ !-d  "$SET_HOME_PATH" ];then
+        echo "프로젝트를 생성하지 않았습니다."
+        echo "프로젝트 생성 및 clone 후 실행해 주세요."
+        exit 1
+    fi
     MYSQL_DUMP_FILE_NAME="$COMPANY_NAME-mysql-$TT.sql"
     GET_DOCKER_PHP_EXEC_TEXT="$COMPANY_NAME-php-1"
     GET_DOCKER_MYSQL_EXEC_TEXT="$COMPANY_NAME-mysql-1"
