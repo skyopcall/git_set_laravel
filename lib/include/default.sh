@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # default 전역변수 설정
-USER=`whoami`;
+USER=`whoami`/$PROJECT_FOLDER;
 # SH_FOLDER_NAME="setting_dev/sh"
 COMPANY_NAME=""
 VERSION="v0.0.2";

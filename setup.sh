@@ -19,11 +19,33 @@ HOME=/home/$USER
 # # setLaravel 1> /dev/nul
 # echo "alias setLaravel='$GET_SH_PATH/main.sh'" >> ~/.bashrc
 
+PROJECT_FOLDER=""
+echo -en "계정 안에 프로젝트 폴더가 있나요? (y/n)";
+read check
+case $check in
+    Y|y) 
+        echo "프로젝트 폴더명을 입력해주세요.(실제로 프로젝트 폴더가 생성되는 곳)"
+        echo "
+            예시) 
+                    계정경로 : /home/dev/
+                    프로젝트 파일명 : test_company
+
+                    우분투(리눅스 터미널)에서 프로젝트 폴더에서 pwd 라는 명령어를 입력했을 때
+                    /home/dev/test_company 가 아닌 /home/dev/project/test_compay 라고 보인다면
+                    project가 프로젝트 폴더명 입니다.
+
+
+        "
+        echo -en "입력: "
+        read PROJECT_FOLDER
+    ;;
+esac
 
 echo "
 
 #custom environment variable
 export SH_FOLDER_NAME=$GET_SH_PATH
+export PROJECT_DIR=$PROJECT_FOLDER
 export GET_SH_LIB_PATH=$GET_SH_PATH/lib
 alias setLaravel='$GET_SH_PATH/main'
 
@@ -32,6 +54,9 @@ alias setLaravel='$GET_SH_PATH/main'
 source ~/.bashrc
 
 ln -s $GET_SH_PATH/lib/main.sh $GET_SH_PATH/main
+chmod 700 $GET_SH_PATH/lib/main.sh
 
 cat ~/.bashrc | tail -5
-la -al $GET_SH_PATH/
+ls -al $GET_SH_PATH/
+
+echo "초기 세팅 완료 !!!!!"

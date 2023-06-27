@@ -27,13 +27,13 @@ function SET_VIEW_LOG(){
 function DOCKER_RUN_PHP_COMMAND(){
     local COMMAND=$1
     docker exec $GET_DOCKER_PHP_EXEC_TEXT sh -c "$COMMAND" 1> /dev/null
-    SET_VIEW_LOG "DOCKER COMMAND" "$?" "$COMMAND"
+    SET_VIEW_LOG "$?" "$COMMAND"
 }
 
 function DOCKER_RUN_MYSQL_COMMAND(){
     local COMMAND=$1
     docker exec $GET_DOCKER_MYSQL_EXEC_TEXT sh -c "$COMMAND" 1> /dev/null
-    SET_VIEW_LOG "DOCKER COMMAND" "$?" "$COMMAND"
+    SET_VIEW_LOG "$?" "$COMMAND"
 }
 
 function GET_MYSQL_DESC_SORT_DUMP_FILE(){
@@ -66,4 +66,12 @@ function SET_GLOBAL_VALUES(){
 
     SET_ENV_FILE_PATH=$SET_WWW_DATA_PATH/.env
     SET_ENV_EXAMPLE_FILE_PATH=$SET_WWW_DATA_PATH/.env.example
+}
+
+function SET_GIT_CLONE_ITC_START(){
+    git clone https://github.com/asom2530/itc-start $SET_WWW_DATA_PATH
+}
+
+function SET_GIT_COMMAND(){
+    local command=$1
 }
