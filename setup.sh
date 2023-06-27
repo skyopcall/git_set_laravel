@@ -42,13 +42,11 @@ case $check in
 esac
 
 echo "
-
 #custom environment variable
 export SH_FOLDER_NAME=$GET_SH_PATH
 export PROJECT_DIR=$PROJECT_FOLDER
 export GET_SH_LIB_PATH=$GET_SH_PATH/lib
 alias setLaravel='$GET_SH_PATH/main'
-
 ">> ~/.bashrc
 
 source ~/.bashrc
@@ -56,7 +54,14 @@ source ~/.bashrc
 ln -s $GET_SH_PATH/lib/main.sh $GET_SH_PATH/main
 chmod 700 $GET_SH_PATH/lib/main.sh
 
-cat ~/.bashrc | tail -5
+cat ~/.bashrc | tail -10
 ls -al $GET_SH_PATH/
 
 echo "초기 세팅 완료 !!!!!"
+echo "1. chmod 700 setup.sh 실행!";
+echo "2. ./setup.sh 실행!"
+echo " '^m bad interpreter no such file or directory' 이와 같은 에러 발생시"
+echo "      1. vi ./setup.sh"
+echo "      2. :set ff=unix"
+echo "      3. :wq"
+echo "      4. ./setup.sh 다시 실행"
