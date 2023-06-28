@@ -102,6 +102,8 @@ function first_build(){
 
     #mysql 가져오기
     SET_MYSQL_DATA
-
+    
+    echo ""
+    echo "세팅 완료 !!"
     sleep 2
 }
