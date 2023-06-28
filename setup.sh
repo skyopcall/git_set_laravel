@@ -51,6 +51,7 @@ alias setLaravel='$GET_SH_PATH/main'
 
 source ~/.bashrc
 
+sed -i -e 's/^M$//' $GET_SH_PATH/lib/main.sh
 ln -s $GET_SH_PATH/lib/main.sh $GET_SH_PATH/main
 chmod 700 $GET_SH_PATH/lib/main.sh
 
