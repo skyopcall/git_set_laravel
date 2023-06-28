@@ -11,14 +11,14 @@ function SET_ENV_DB_HOST(){
     SET_LOG "SET_ENV_DB_HOST" "$env_change_value"
 
     ls $SET_ENV_FILE_PATH 1> /dev/null
-    SET_VIEW_LOG "SET_ENV_DB_HOST" $?
+    SET_VIEW_LOG "SET_ENV_DB_HOST" "$?"
 }
 
 function SET_DOCKER_COMPOSE_COPY(){
     cp $GET_SH_FILE_PATH/docker-compose.yml $SET_HOME_PATH/docker-compose.yml
     ls $SET_HOME_PATH/docker-compose.yml 1> /dev/null
 
-    SET_VIEW_LOG "SET_DOCKER_COMPOSE_COPY" $?
+    SET_VIEW_LOG "SET_DOCKER_COMPOSE_COPY" "$?"
 }
 
 function SET_BUILD(){
@@ -37,13 +37,14 @@ function SET_BUILD(){
 
 function GET_DOCKER_CODE(){
     docker ps 1> /dev/null
-    SET_VIEW_LOG "GET_DOCKER_CODE" $?
-    echo ""
+    SET_VIEW_LOG "GET_DOCKER_CODE" "$?"
     
     GET_DOCKER_PHP_EXEC_CODE=`docker ps | grep $GET_DOCKER_PHP_EXEC_TEXT`
     GET_DOCKER_MYSQL_EXEC_CODE=`docker ps | grep $GET_DOCKER_MYSQL_EXEC_TEXT`
 
-    SET_LOG "GET_DOCKER_CODE" "php:$GET_DOCKER_PHP_EXEC_CODE, mysql:$GET_DOCKER_MYSQL_EXEC_CODE"
+    echo ""
+    SET_LOG "GET_DOCKER_CODE" "php:$GET_DOCKER_PHP_EXEC_CODE"
+    SET_LOG "GET_DOCKER_CODE" "mysql:$GET_DOCKER_MYSQL_EXEC_CODE"
 
 }
 
@@ -51,7 +52,7 @@ function SET_DOCKER_UP_DEV(){
     cd $SET_HOME_PATH;
 
     docker-compose up -d
-    SET_VIEW_LOG "SET_DOCKER_UP_DEV" $?
+    SET_VIEW_LOG "SET_DOCKER_UP_DEV" "$?"
 
     GET_DOCKER_CODE
 
@@ -62,8 +63,7 @@ function SET_COMPOSER_INSTALL(){
     # docker exec $GET_DOCKER_PHP_EXEC_TEXT composer install && 1> /dev/null
     DOCKER_RUN_PHP_COMMAND "composer install" 1> /dev/null
 
-    ls $SET_WWW_DATA_PATH 1> /dev/null
-    SET_VIEW_LOG "SET_COMPOSER_INSTALL" $?
+    # SET_VIEW_LOG "SET_COMPOSER_INSTALL" $?
 }
 
 function SET_PHP_ARTISAN(){
@@ -102,4 +102,6 @@ function first_build(){
 
     #mysql 가져오기
     SET_MYSQL_DATA
+
+    sleep 2
 }

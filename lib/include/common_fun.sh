@@ -10,7 +10,7 @@ function SET_VIEW_LOG(){
     local RESULT=$2
     local CONTENT=$3
 
-    if [ $RESULT -eq 0 ];then
+    if [ "${VARIABLE:-0}" == 0 ] ; then
         echo -e "[ \033[40;32mSUCCESS\033[0m ] [$COMMAND]"
     else
         # 명령어 실패시
@@ -27,13 +27,14 @@ function SET_VIEW_LOG(){
 function DOCKER_RUN_PHP_COMMAND(){
     local COMMAND=$1
     docker exec $GET_DOCKER_PHP_EXEC_TEXT sh -c "$COMMAND" 1> /dev/null
-    SET_VIEW_LOG "$?" "$COMMAND"
+
+    SET_VIEW_LOG "$COMMAND" "$?"
 }
 
 function DOCKER_RUN_MYSQL_COMMAND(){
     local COMMAND=$1
     docker exec $GET_DOCKER_MYSQL_EXEC_TEXT sh -c "$COMMAND" 1> /dev/null
-    SET_VIEW_LOG "$?" "$COMMAND"
+    SET_VIEW_LOG "$COMMAND" "$?"
 }
 
 function GET_MYSQL_DESC_SORT_DUMP_FILE(){
