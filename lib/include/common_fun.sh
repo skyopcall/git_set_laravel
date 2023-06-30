@@ -15,7 +15,7 @@ function SET_VIEW_LOG(){
     else
         # 명령어 실패시
         echo -e "[ \033[40;31mFAIL\033[0m ] [$COMMAND] $CONTENT"
-        exit 1
+        exit 0
     fi
 }
 

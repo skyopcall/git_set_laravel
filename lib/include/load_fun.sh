@@ -88,7 +88,7 @@ function first_build(){
     if [ ! -d  "$SET_HOME_PATH" ];then
         echo "프로젝트를 생성되지 않았습니다."
         echo "프로젝트 생성 및 clone 후 실행해 주세요."
-        exit 1
+        exit 0
     fi
 
     # env 카피 및 DB_HOST 값 수정
