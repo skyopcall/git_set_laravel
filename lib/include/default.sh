@@ -4,7 +4,7 @@
 USER=`whoami`/$PROJECT_FOLDER;
 # SH_FOLDER_NAME="setting_dev/sh"
 COMPANY_NAME=""
-VERSION="v0.0.3";
+VERSION="v0.1.0";
 TT=`date +%Y%m%d%H%M%S`;
 
 SET_HOME_PATH="";

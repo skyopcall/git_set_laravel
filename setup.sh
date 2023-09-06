@@ -46,13 +46,13 @@ echo "
 export SH_FOLDER_NAME=$GET_SH_PATH
 export PROJECT_DIR=$PROJECT_FOLDER
 export GET_SH_LIB_PATH=$GET_SH_PATH/lib
-alias setLaravel='$GET_SH_PATH/main'
+alias setLaravel='$GET_SH_PATH/main.sh'
 ">> ~/.bashrc
 
 source ~/.bashrc
 
 sed -i -e 's/^M$//' $GET_SH_PATH/lib/main.sh
-ln -s $GET_SH_PATH/lib/main.sh $GET_SH_PATH/main
+# ln -s $GET_SH_PATH/lib/main.sh $GET_SH_PATH/main
 chmod 700 $GET_SH_PATH/lib/main.sh
 
 cat ~/.bashrc | tail -10

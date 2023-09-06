@@ -39,7 +39,7 @@ function DOCKER_RUN_MYSQL_COMMAND(){
 
 function GET_MYSQL_DESC_SORT_DUMP_FILE(){
     cd $GET_MYSQL_DUMP_FILE_PATH;
-    local file_name=`ls -tr $COMPANY_NAME-mysql* | tail -1`
+    local file_name=`ls -tr $COMPANY_NAME* | tail -1`
     # cd $GET_SH_PATH
 
     echo $file_name
